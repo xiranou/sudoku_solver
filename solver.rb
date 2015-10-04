@@ -20,11 +20,30 @@ class Solver
 
   def find_next_empty
     sudoku_board.each_with_index do |element, index|
-      return {index => element} if element == '0'
+      return {index => element} if element == 0
+    end
+  end
+
+  def column_passed?(index, guess)
+    # find all elements in the same column as given index
+    # return !column_elements.include?(guess)
+    !column_elements(index).include?(guess)
+  end
+
+  def column_elements(index)
+    column = index % 9
+    [].tap do |column_elements|
+      sudoku_board.each_with_index do |b_element, b_index|
+        column_elements << b_element if b_index % 9 == column
+      end
     end
   end
 end
 
-p sample
 solver = Solver.new(sample)
-p solver.find_next_empty
+solver.sudoku_board.each_slice(9) do |row|
+  p row
+end
+puts
+p solver.column_elements(0)
+p solver.column_passed?(0, 5)
