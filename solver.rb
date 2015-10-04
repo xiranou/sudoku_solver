@@ -1,0 +1,1 @@
+sample = File.readlines(File.expand_path("./sample_unsolved.txt")).first.gsub("\n", "")
