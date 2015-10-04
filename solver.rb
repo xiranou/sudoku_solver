@@ -10,10 +10,12 @@ class Solver
   def solve!
     # find 0
     current = find_next_empty
-    # insert guess according to the outcome from rules(vertical, horizonal, quad)
-    # store in back track array: {index: guess}
+    # start guessing from [*1..9]
+    # insert guess to rules(vertical, horizonal, quad)
+    # if all rules passed: store in back track array: {index: guess}
+    # else: move up from guess array
     # repeat ^
-    # if no guess availble to current 0, back track up until guess available
+    # if no guess availble to current, back track up until guess available
   end
 
   def find_next_empty
