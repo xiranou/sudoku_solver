@@ -4,7 +4,7 @@ class Solver
   attr_accessor :sudoku_board
 
   def initialize(string)
-    @sudoku_board = string.split("")
+    @sudoku_board = string.split("").map { |e| e.to_i }
   end
 
   def solve!
