@@ -7,6 +7,7 @@ class Solver
   end
 
   def solve!
+    show_board("Starting soon...", 0.5)
     # find 0
     current = find_next_empty
     # while there's still empty spots, current != nil:
@@ -17,13 +18,16 @@ class Solver
     #   if none of the guesses return true from all_passed?:
     #     current = guessed_indexes.pop (last position)
     #     start guessing from the last guess up for the new current!
+
     while !current.nil?
+      show_board("Solving...", 0.03)
       if has_a_guess?(current)
         current = find_next_empty
       else
         current = guessed_indexes.pop
       end
     end
+    show_board("Finished!")
   end
 
   def find_next_empty
@@ -94,17 +98,20 @@ class Solver
 
   def display_board
     sudoku_board.each_slice(9) do |row|
-      puts row.join(" | ")
+      puts row.join(" | ").gsub("0", "-")
     end
+  end
+
+  def show_board(message, delay=0)
+    puts "\e[H\e[2J"
+    puts "=== #{message} ==="
+    display_board
+    sleep delay
   end
 end
 
 File.readlines(File.expand_path("./sample_unsolved.txt")).each do |sudoku_sample|
-  solver = Solver.new(sudoku_sample)
-  puts "=== starting ==="
-  solver.display_board
-  puts "=== solving ==="
-  solver.solve!
-  puts "=== finished! ==="
-  solver.display_board
+  Solver.new(sudoku_sample).solve!
+  puts "Starting the next one in just a sec!"
+  sleep 3
 end
