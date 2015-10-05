@@ -30,21 +30,29 @@ class Solver
     !find_elements('column', index).include?(guess)
   end
 
+  def row_passed?(index, guess)
+    !find_elements('row', index).include?(guess)
+  end
+
   def find_elements(option, index)
     [].tap do |elements|
       sudoku_board.each_with_index do |b_element, b_index|
         case option
         when 'column'
           elements << b_element if same?('column', b_index, index)
+        when 'row'
+          elements << b_element if same?('row', b_index, index)
         end
       end
     end
   end
 
-  def same?(option, b_index, index)
+  def same?(option, board_index, target_index)
     case option
     when 'column'
-      b_index % 9 == index % 9
+      board_index % 9 == target_index % 9
+    when 'row'
+      board_index / 9 == target_index / 9
     end
   end
 end
@@ -56,3 +64,6 @@ end
 puts
 p solver.find_elements('column', 0)
 p solver.column_passed?(0, 3)
+puts
+p solver.find_elements('row', 0)
+p solver.row_passed?(0, 3)
