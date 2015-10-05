@@ -27,15 +27,24 @@ class Solver
   def column_passed?(index, guess)
     # find all elements in the same column as given index
     # return !column_elements.include?(guess)
-    !column_elements(index).include?(guess)
+    !find_elements('column', index).include?(guess)
   end
 
-  def column_elements(index)
-    column = index % 9
-    [].tap do |column_elements|
+  def find_elements(option, index)
+    [].tap do |elements|
       sudoku_board.each_with_index do |b_element, b_index|
-        column_elements << b_element if b_index % 9 == column
+        case option
+        when 'column'
+          elements << b_element if same?('column', b_index, index)
+        end
       end
+    end
+  end
+
+  def same?(option, b_index, index)
+    case option
+    when 'column'
+      b_index % 9 == index % 9
     end
   end
 end
@@ -45,5 +54,5 @@ solver.sudoku_board.each_slice(9) do |row|
   p row
 end
 puts
-p solver.column_elements(0)
-p solver.column_passed?(0, 5)
+p solver.find_elements('column', 0)
+p solver.column_passed?(0, 3)
