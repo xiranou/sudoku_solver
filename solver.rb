@@ -2,7 +2,7 @@ class Solver
   attr_accessor :sudoku_board, :guessed_indexes
 
   def initialize(string)
-    @sudoku_board = string.split("").map { |e| e.to_i }
+    @sudoku_board = string.gsub("\n", "").split("").map { |e| e.to_i }
     @guessed_indexes = []
   end
 
@@ -100,7 +100,7 @@ class Solver
 end
 
 File.readlines(File.expand_path("./sample_unsolved.txt")).each do |sudoku_sample|
-  solver = Solver.new(sudoku_sample.gsub("\n", ""))
+  solver = Solver.new(sudoku_sample)
   puts "=== starting ==="
   solver.display_board
   puts "=== solving ==="
