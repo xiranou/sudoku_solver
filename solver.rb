@@ -41,12 +41,12 @@ class Solver
   def find_elements(option, index)
     [].tap do |elements|
       sudoku_board.each_with_index do |b_element, b_index|
-        elements << b_element if same_location?(option, b_index, index)
+        elements << b_element if same_position?(option, b_index, index)
       end
     end
   end
 
-  def same_location?(option, board_index, target_index)
+  def same_position?(option, board_index, target_index)
     case option
     when 'column'
       board_index % 9 == target_index % 9
