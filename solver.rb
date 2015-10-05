@@ -53,7 +53,7 @@ class Solver
     when 'row'
       board_index / 9 == target_index / 9
     when 'quad'
-      (board_index / 3) % 3 == (target_index / 3) % 3
+      [(board_index%9)/3, (board_index/9)/3] == [(target_index%9)/3, (target_index/9)/3]
     end
   end
 
