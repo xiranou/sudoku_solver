@@ -11,18 +11,21 @@ class Solver
   def solve!
     # find 0
     current = find_next_empty
-    # start guessing from [*1..9]
-    # insert guess to rules(vertical, horizonal, quad)
-    # if all rules passed: store in back track array: {index: guess}
-    # else: move up from guess array
-    # repeat ^
-    # if no guess availble to current, back track up until guess available
+    # while there's still empty spots, current != nil:
+    #   guess from 1..9
+    #   run each guess to all_passed?:
+    #     if all_passsed return true:
+    #       save guess into current spot, save current spot into backtrack
+    #   if none of the guesses return true from all_passed?:
+    #     current = guessed_indexes.pop (last position)
+    #     start guessing from the last guess up for the new current!
   end
 
   def find_next_empty
     sudoku_board.each_with_index do |element, index|
-      return {index => element} if element == 0
+      return index if element == 0
     end
+    return nil
   end
 
   # def column_passed?(index, guess)
@@ -78,6 +81,7 @@ end
 solver = Solver.new(sample)
 solver.display_board
 puts
+solver.solve!
 # p solver.find_elements('column', 0)
 # p solver.column_passed?(0, 3)
 # puts
