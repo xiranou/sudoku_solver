@@ -73,16 +73,16 @@ class Solver
     !find_elements(position, index).include?(guess)
   end
 
-  def find_elements(option, index)
+  def find_elements(position, index)
     [].tap do |elements|
       sudoku_board.each_with_index do |b_element, b_index|
-        elements << b_element if same_position?(option, b_index, index)
+        elements << b_element if same_position?(position, b_index, index)
       end
     end
   end
 
-  def same_position?(option, board_index, target_index)
-    case option
+  def same_position?(position, board_index, target_index)
+    case position
     when 'column'
       board_index % 9 == target_index % 9
     when 'row'
