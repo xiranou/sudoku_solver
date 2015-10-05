@@ -28,6 +28,22 @@ class Solver
     return nil
   end
 
+  def has_a_guess?(index)
+    [*current_guess(index)..9].each do |guess|
+      if all_passed?(index, guess)
+        sudoku_board[index] = guess
+        guessed_indexes << index
+        return true
+      end
+    end
+    sudoku_board[index] = 0
+    return false
+  end
+
+  def current_guess(index)
+    sudoku_board[index] + 1
+  end
+
   # def column_passed?(index, guess)
   #   # find all elements in the same column as given index
   #   # return !column_elements.include?(guess)
