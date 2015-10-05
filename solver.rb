@@ -24,18 +24,28 @@ class Solver
     end
   end
 
-  def column_passed?(index, guess)
-    # find all elements in the same column as given index
-    # return !column_elements.include?(guess)
-    !find_elements('column', index).include?(guess)
+  # def column_passed?(index, guess)
+  #   # find all elements in the same column as given index
+  #   # return !column_elements.include?(guess)
+  #   !find_elements('column', index).include?(guess)
+  # end
+
+  # def row_passed?(index, guess)
+  #   !find_elements('row', index).include?(guess)
+  # end
+
+  # def quad_passed?(index, guess)
+  #   !find_elements('quad', index).include?(guess)
+  # end
+
+  def all_passed?(index, guess)
+    %w(column row quad).all? do |position|
+      passed?(position, index, guess)
+    end
   end
 
-  def row_passed?(index, guess)
-    !find_elements('row', index).include?(guess)
-  end
-
-  def quad_passed?(index, guess)
-    !find_elements('quad', index).include?(guess)
+  def passed?(position, index, guess)
+    !find_elements(position, index).include?(guess)
   end
 
   def find_elements(option, index)
@@ -73,5 +83,5 @@ puts
 # p solver.find_elements('row', 0)
 # p solver.row_passed?(0, 3)
 # puts
-p solver.find_elements('quad', 0)
-p solver.quad_passed?(0, 3)
+# p solver.find_elements('quad', 0)
+# p solver.quad_passed?(0, 3)
