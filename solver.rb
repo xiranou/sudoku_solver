@@ -1,13 +1,13 @@
 class Solver
-  attr_accessor :sudoku_board, :guessed_indexes
+  attr_accessor :sudoku_board, :guessed_indexes, :original_board
 
   def initialize(string)
     @sudoku_board = string.gsub("\n", "").split("").map { |e| e.to_i }
+    @original_board = @sudoku_board.dup
     @guessed_indexes = []
   end
 
   def solve!
-    show_board("Starting soon...", 0.5)
     # find 0
     current = find_next_empty
     # while there's still empty spots, current != nil:
@@ -20,7 +20,7 @@ class Solver
     #     start guessing from the last guess up for the new current!
 
     while !current.nil?
-      show_board("Solving...", 0.03)
+      show_board("Solving...")
       if has_a_guess?(current)
         current = find_next_empty
       else
@@ -96,14 +96,16 @@ class Solver
     end
   end
 
-  def display_board
-    sudoku_board.each_slice(9) do |row|
+  def display_board(board=sudoku_board)
+    board.each_slice(9) do |row|
       puts row.join(" | ").gsub("0", "-")
     end
   end
 
-  def show_board(message, delay=0)
+  def show_board(message, delay=0.01)
     puts "\e[H\e[2J"
+    puts "=== Board: ==="
+    display_board(original_board)
     puts "=== #{message} ==="
     display_board
     sleep delay
