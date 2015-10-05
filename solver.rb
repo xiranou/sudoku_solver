@@ -34,36 +34,44 @@ class Solver
     !find_elements('row', index).include?(guess)
   end
 
+  def quad_passed?(index, guess)
+    !find_elements('quad', index).include?(guess)
+  end
+
   def find_elements(option, index)
     [].tap do |elements|
       sudoku_board.each_with_index do |b_element, b_index|
-        case option
-        when 'column'
-          elements << b_element if same?('column', b_index, index)
-        when 'row'
-          elements << b_element if same?('row', b_index, index)
-        end
+        elements << b_element if same_location?(option, b_index, index)
       end
     end
   end
 
-  def same?(option, board_index, target_index)
+  def same_location?(option, board_index, target_index)
     case option
     when 'column'
       board_index % 9 == target_index % 9
     when 'row'
       board_index / 9 == target_index / 9
+    when 'quad'
+      (board_index / 3) % 3 == (target_index / 3) % 3
+    end
+  end
+
+  def display_board
+    sudoku_board.each_slice(9) do |row|
+      puts row.join(" | ")
     end
   end
 end
 
 solver = Solver.new(sample)
-solver.sudoku_board.each_slice(9) do |row|
-  p row
-end
+solver.display_board
 puts
-p solver.find_elements('column', 0)
-p solver.column_passed?(0, 3)
-puts
-p solver.find_elements('row', 0)
-p solver.row_passed?(0, 3)
+# p solver.find_elements('column', 0)
+# p solver.column_passed?(0, 3)
+# puts
+# p solver.find_elements('row', 0)
+# p solver.row_passed?(0, 3)
+# puts
+p solver.find_elements('quad', 0)
+p solver.quad_passed?(0, 3)
