@@ -1,5 +1,3 @@
-sample = File.readlines(File.expand_path("./sample_unsolved.txt")).first.gsub("\n", "")
-
 class Solver
   attr_accessor :sudoku_board, :guessed_indexes
 
@@ -14,11 +12,18 @@ class Solver
     # while there's still empty spots, current != nil:
     #   guess from 1..9
     #   run each guess to all_passed?:
-    #     if all_passsed return true:
+    #     if all_passed return true:
     #       save guess into current spot, save current spot into backtrack
     #   if none of the guesses return true from all_passed?:
     #     current = guessed_indexes.pop (last position)
     #     start guessing from the last guess up for the new current!
+    while !current.nil?
+      if has_a_guess?(current)
+        current = find_next_empty
+      else
+        current = guessed_indexes.pop
+      end
+    end
   end
 
   def find_next_empty
@@ -94,15 +99,12 @@ class Solver
   end
 end
 
-solver = Solver.new(sample)
-solver.display_board
-puts
-solver.solve!
-# p solver.find_elements('column', 0)
-# p solver.column_passed?(0, 3)
-# puts
-# p solver.find_elements('row', 0)
-# p solver.row_passed?(0, 3)
-# puts
-# p solver.find_elements('quad', 0)
-# p solver.quad_passed?(0, 3)
+File.readlines(File.expand_path("./sample_unsolved.txt")).each do |sudoku_sample|
+  solver = Solver.new(sudoku_sample.gsub("\n", ""))
+  puts "=== starting ==="
+  solver.display_board
+  puts "=== solving ==="
+  solver.solve!
+  puts "=== finished! ==="
+  solver.display_board
+end
