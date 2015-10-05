@@ -1,10 +1,11 @@
 sample = File.readlines(File.expand_path("./sample_unsolved.txt")).first.gsub("\n", "")
 
 class Solver
-  attr_accessor :sudoku_board
+  attr_accessor :sudoku_board, :guessed_indexes
 
   def initialize(string)
     @sudoku_board = string.split("").map { |e| e.to_i }
+    @guessed_indexes = []
   end
 
   def solve!
