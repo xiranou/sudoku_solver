@@ -5,7 +5,7 @@
             <% 9.times do |row_i| %>
             <tr class="row">
                 <% 9.times do |col_i| %>
-                <td class="col"><input type="text"></td>
+                <td class="col"><input type="text" name="col: <%= col_i %>" class="number-input"></td>
                 <% end %>
             </tr>
             <% end %>
