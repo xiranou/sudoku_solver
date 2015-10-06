@@ -2,10 +2,10 @@ require 'rubygems'
 require 'bundler'
 
 Bundler.require
-# require 'sinatra'
-require './models/example'
+
+require './models/solver'
 
 get "/" do
-  @example = Example.call
+  @example = Solver.new(File.readlines(File.expand_path("./sample_unsolved.txt")).first).sudoku_board
   erb :home
 end
