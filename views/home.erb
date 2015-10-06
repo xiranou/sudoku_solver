@@ -2,17 +2,11 @@
 <form action="/solve" method="post" class="board">
     <table>
         <tbody>
-            <% 9.times do |_| %>
+            <% 9.times do |row_i| %>
             <tr class="row">
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
-                <td><input type="text" class="col"></td>
+                <% 9.times do |col_i| %>
+                <td class="col"><input type="text"></td>
+                <% end %>
             </tr>
             <% end %>
         </tbody>
