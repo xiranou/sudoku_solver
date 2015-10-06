@@ -20,14 +20,15 @@ class Solver
     #     start guessing from the last guess up for the new current!
 
     while !current.nil?
-      show_board("Solving...")
+      # show_board("Solving...")
       if has_a_guess?(current)
         current = find_next_empty
       else
         current = guessed_indexes.pop
       end
     end
-    show_board("Finished!")
+    # show_board("Finished!")
+    sudoku_board
   end
 
   def find_next_empty
