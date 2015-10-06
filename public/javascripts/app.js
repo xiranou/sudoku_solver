@@ -12,14 +12,22 @@ $(function () {
       }
     }).get().join("");
 
+    var inputs = $form.find("input[class='number-input']").map(function(index, elem) {
+      return elem
+    }).get();
+
+
     $.ajax({
       url: url,
       type: 'POST',
       dataType: 'JSON',
-      data: {data: data},
+      data: {data: data}
     })
-    .done(function(data) {
-      console.log(data);
+    .done(function(results) {
+      console.log(results);
+      for (var i=0; i<81; i++){
+        $(inputs[i]).val(results[i]);
+      }
     })
     .fail(function() {
       console.log("error");
