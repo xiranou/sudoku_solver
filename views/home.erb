@@ -1,14 +1,21 @@
 <h1>Hello World!</h1>
-<form action="/solve" method="post">
-  <div class="row">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-    <input type="text" class="col">
-  </div>
+<form action="/solve" method="post" class="board">
+    <table>
+        <tbody>
+            <% 9.times do |_| %>
+            <tr class="row">
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+                <td><input type="text" class="col"></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <button type="submit">Solve!</button>
 </form>
