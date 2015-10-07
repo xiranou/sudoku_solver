@@ -6,6 +6,6 @@ end
 
 post "/solve" do
   content_type :json
-  @results = Solver.new(params[:data]).solve!
+  @results = Solver.new(params[:inputs]).solve!
   @results.to_json
 end

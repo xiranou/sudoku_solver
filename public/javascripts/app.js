@@ -1,9 +1,16 @@
 $(function () {
-  $('body').on('submit', 'form.board', function(e) {
+  var $body = $('body'),
+      $form = $body.find('form.board').first(),
+      $inputs = $form.find("input[class='number-input']");
+
+  $body.on('submit', 'form.board', submitToSolve);
+
+  function submitToSolve (e){
     e.preventDefault();
-    var $form = $(e.target);
+    e.stopImmediatePropagation();
+
     var url = $form.attr('action');
-    var data = $form.find("input[class='number-input']").map(function(index, elem) {
+    var data = $inputs.map(function(index, elem) {
       var val = $(elem).val();
       if (val) {
         return val;
@@ -12,26 +19,30 @@ $(function () {
       }
     }).get().join("");
 
-    var inputs = $form.find("input[class='number-input']").map(function(index, elem) {
-      return elem
-    }).get();
-
-
     $.ajax({
       url: url,
       type: 'POST',
       dataType: 'JSON',
-      data: {data: data}
+      data: {inputs: data}
+      // below are test data:
+      // data: {inputs: "096040001100060004504810390007950043030080000405023018010630059059070830003590007"}
     })
     .done(function(results) {
-      console.log(results);
-      for (var i=0; i<81; i++){
-        $(inputs[i]).val(results[i]);
-      }
+      appendResults(results);
     })
     .fail(function() {
       console.log("error");
     });
+  }
 
-  });
+  function appendResults (results) {
+    var inputs = $inputs.map(function(index, elem) {
+      return elem
+    }).get();
+    for (var i=0; i<results.length; i++){
+      $(inputs[i]).val(results[i]);
+    }
+  }
+
+
 });
