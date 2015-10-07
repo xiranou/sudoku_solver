@@ -3,7 +3,9 @@ $(function () {
       $form = $body.find('form.board').first(),
       $inputs = $form.find("input[class='number-input']");
 
-  $body.on('submit', 'form.board', submitToSolve);
+  $body
+    .on('submit', 'form.board', submitToSolve)
+    .on('click', '#x-reset-btn', clearInputs);
 
   function submitToSolve (e){
     e.preventDefault();
@@ -42,6 +44,12 @@ $(function () {
     for (var i=0; i<results.length; i++){
       $(inputs[i]).val(results[i]);
     }
+  }
+
+  function clearInputs (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    $inputs.val('');
   }
 
 
